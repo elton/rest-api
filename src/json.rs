@@ -77,6 +77,7 @@ struct Address {
 }
 
 /// Creating JSON by serializing data structures
+/// Any type that implements Serde's Serialize trait can be serialized this way. This includes built-in Rust standard library types like `Vec<T>` and `HashMap<K, V>`, as well as any structs or enums annotated with `#[derive(Serialize)]`.
 fn print_an_address() -> Result<()> {
     // Some data structure.
     let address = Address {
