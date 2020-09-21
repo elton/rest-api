@@ -11,9 +11,10 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+use crate::config::CONFIG;
 use crate::routes::routes;
 
-use actix_web::{middleware, App, HttpServer};
+use actix_web::{middleware::Logger, App, HttpServer};
 use openssl::ssl::{SslAcceptor, SslFiletype, SslMethod};
 
 /// Setup a Server using Actix-web 3
@@ -34,9 +35,9 @@ pub async fn server() -> std::io::Result<()> {
     let server = HttpServer::new(move || {
         App::new()
             // enable logger
-            .wrap(middleware::Logger::default())
+            .wrap(Logger::default())
             .configure(routes)
     })
-    .bind_openssl("127.0.0.1:8443", builder)?;
+    .bind_openssl(&CONFIG.server, builder)?;
     server.run().await
 }

@@ -1,5 +1,9 @@
+#[macro_use]
+extern crate lazy_static;
+
 use crate::server::server;
 
+mod config;
 mod handlers;
 mod routes;
 mod server;
