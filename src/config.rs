@@ -18,6 +18,8 @@ use serde::Deserialize;
 #[derive(Clone, Deserialize, Debug)]
 pub struct Config {
     pub server: String,
+    pub database: String,
+    pub database_url: String,
 }
 
 // Throw the Config struct into a CONFIG lazy_static to avoid multiple processing
