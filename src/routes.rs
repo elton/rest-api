@@ -12,9 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 use crate::handlers::health::get_health;
+use crate::handlers::post::get_posts;
 use actix_web::web;
 
 pub fn routes(cfg: &mut web::ServiceConfig) {
     // Healthcheck
-    cfg.service(get_health);
+    cfg.service(get_health)
+        .service(web::scope("/api/v1").service(get_posts));
 }

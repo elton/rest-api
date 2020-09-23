@@ -7,13 +7,6 @@ struct Point {
     y: i32,
 }
 
-#[derive(Serialize, Deserialize)]
-struct Person {
-    name: String,
-    age: u8,
-    phones: Vec<String>,
-}
-
 fn untyped() -> Result<()> {
     // Some JSON input data as a &str. Maybe this comes from the user.
     let data = r#"
@@ -28,6 +21,13 @@ fn untyped() -> Result<()> {
     let v: Value = serde_json::from_str(&data)?;
     println!("Please call {} at the number {}", v["name"], v["phones"][0]);
     Ok(())
+}
+
+#[derive(Serialize, Deserialize)]
+struct Person {
+    name: String,
+    age: u8,
+    phones: Vec<String>,
 }
 
 fn typed() -> Result<()> {

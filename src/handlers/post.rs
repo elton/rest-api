@@ -1,12 +1,11 @@
-use serde::{Deserialize, Serialize};
+use crate::models::post::{get_all, NewPost};
+use actix_web::{get, web::block};
+use serde_json::Result;
 
-#[derive(Debug, Deserialize, Serialize, PartialEq)]
-pub struct postResponse {
-    pub id: i32,
-    pub title: String,
-    pub body: String,
-    pub published: bool,
+#[get("/posts")]
+pub async fn get_posts() -> Result<String> {
+    let posts = block(move || get_all()).await;
+    serde_json::to_string(&posts.unwrap())
 }
 
-#[derive(Debug, Deserialize, Serialize, PartialEq)]
-pub struct postsResponse(pub Vec<postResponse>);
+pub async fn create_post() {}

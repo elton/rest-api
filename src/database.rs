@@ -1,6 +1,9 @@
-/// 数据库相关功能
-use diesel::mysql::MysqlConnection;
 use diesel::prelude::*;
+/// 数据库相关功能
+use diesel::{
+    mysql::MysqlConnection,
+    r2d2::{ConnectionManager, PoolError},
+};
 use dotenv::dotenv;
 use std::env;
 
