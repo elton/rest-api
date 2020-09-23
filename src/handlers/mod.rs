@@ -11,6 +11,16 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+use crate::database::{MySqlPooledConnection, MysqlPool};
+
+use actix_web::{web, HttpResponse};
 
 pub mod health;
 pub mod post;
+
+pub fn mysql_pool_handler(
+    pool: web::Data<MysqlPool>,
+) -> Result<MySqlPooledConnection, HttpResponse> {
+    pool.get()
+        .map_err(|e| HttpResponse::InternalServerError().json(e.to_string()))
+}

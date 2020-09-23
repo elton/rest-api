@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 use crate::config::CONFIG;
+use crate::database::connect;
 use crate::routes::routes;
 
 use actix_web::{middleware::Logger, App, HttpServer};
@@ -36,6 +37,7 @@ pub async fn server() -> std::io::Result<()> {
         App::new()
             // enable logger
             .wrap(Logger::default())
+            .data(connect())
             .configure(routes)
     })
     .bind_openssl(&CONFIG.server, builder)?;
