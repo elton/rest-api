@@ -1,6 +1,6 @@
 use crate::schema::posts;
 
-use diesel::mysql::MysqlConnection;
+use diesel::pg::PgConnection;
 use diesel::prelude::*;
 use serde::{Deserialize, Serialize};
 
@@ -17,7 +17,7 @@ pub struct PostList(pub Vec<Post>);
 
 impl PostList {
     // 获得post列表
-    pub fn list(connection: &MysqlConnection) -> Self {
+    pub fn list(connection: &PgConnection) -> Self {
         use crate::schema::posts::dsl::*;
 
         let result = posts
